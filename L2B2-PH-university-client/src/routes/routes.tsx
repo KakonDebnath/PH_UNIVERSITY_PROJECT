@@ -38,16 +38,16 @@ const router = createBrowserRouter([
         element: <AdminDashboard />,
       },
       {
-        path: 'create-student',
-        element: <CreateStudent />,
+        path: 'create-Admin',
+        element: <CreateAdmin />,
       },
       {
         path: 'create-faculty',
         element: <CreateFaculty />,
       },
       {
-        path: 'create-Admin',
-        element: <CreateAdmin />,
+        path: 'create-student',
+        element: <CreateStudent />,
       },
     ],
   },
