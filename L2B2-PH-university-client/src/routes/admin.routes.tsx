@@ -4,7 +4,7 @@ import CreateAdmin from '../pages/admin/CreateAdmin';
 import CreateFaculty from '../pages/admin/CreateFaculty';
 import CreateStudent from '../pages/admin/CreateStudent';
 
-type TRoute = { path: string; element: React.ReactNode };
+// type TRoute = { path: string; element: React.ReactNode };
 
 type TSidebarMenuItem = {
   key: string;
@@ -12,7 +12,7 @@ type TSidebarMenuItem = {
   children?: TSidebarMenuItem[];
 };
 
-const adminPaths = [
+export const adminPaths = [
   {
     name: 'Dashboard',
     element: <AdminDashboard />,
@@ -40,25 +40,25 @@ const adminPaths = [
   },
 ];
 
-export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
-  if (item.path && item.element) {
-    acc.push({
-      path: item.path,
-      element: item.element,
-    });
-  }
+// export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
+//   if (item.path && item.element) {
+//     acc.push({
+//       path: item.path,
+//       element: item.element,
+//     });
+//   }
 
-  if (item.children && item.children.length) {
-    item.children.forEach((child) => {
-      acc.push({
-        path: child.path,
-        element: child.element,
-      });
-    });
-  }
+//   if (item.children && item.children.length) {
+//     item.children.forEach((child) => {
+//       acc.push({
+//         path: child.path,
+//         element: child.element,
+//       });
+//     });
+//   }
 
-  return acc;
-}, []);
+//   return acc;
+// }, []);
 
 export const sidebarMenuItems = adminPaths.reduce(
   (acc: TSidebarMenuItem[], item) => {
