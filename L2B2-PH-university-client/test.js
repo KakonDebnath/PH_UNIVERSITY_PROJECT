@@ -50,4 +50,26 @@ const adminPaths = adminPaths2.reduce((acc, item) => {
   return acc;
 }, []);
 
-console.log(adminPaths);
+const menuNavlinks = adminPaths2.reduce((acc, item) => {
+  if (item.name && item.path) {
+    acc.push({
+      key: item.name,
+      label: item.name,
+    });
+  }
+
+  if (item.children && item.children.length) {
+    acc.push({
+      key: item.name,
+      label: item.name,
+      children: item.children.map((child) => ({
+        key: child.name,
+        label: child.name,
+      })),
+    });
+  }
+
+  return acc;
+}, []);
+
+console.log(menuNavlinks);
