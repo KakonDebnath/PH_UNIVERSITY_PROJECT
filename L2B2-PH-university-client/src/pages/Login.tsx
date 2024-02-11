@@ -16,10 +16,18 @@ const Login = () => {
   });
 
   const [login, { error }] = useLoginMutation();
+
   const onSubmit = async (data) => {
     const res = await login(data).unwrap();
+
     const userInfo = verifyToken(res.data.accessToken);
-    dispatch(setUser({ user: userInfo, token: res.data.accessToken }));
+
+    dispatch(
+      setUser({
+        user: userInfo,
+        token: res.data.accessToken,
+      })
+    );
     console.log(res);
   };
   return (
