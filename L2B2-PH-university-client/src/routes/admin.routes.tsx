@@ -2,7 +2,7 @@ import AdminDashboard from '../pages/admin/AdminDashboard';
 import CreateAdmin from '../pages/admin/CreateAdmin';
 import CreateFaculty from '../pages/admin/CreateFaculty';
 import CreateStudent from '../pages/admin/CreateStudent';
-
+import AcademicSemester from '../pages/admin/academicManagement/AcademicSemester';
 
 export const adminPaths = [
   {
@@ -30,6 +30,16 @@ export const adminPaths = [
       },
     ],
   },
+  {
+    name: 'Academic Management',
+    children: [
+      {
+        name: 'Get Academic Semester',
+        path: 'academic-semesters',
+        element: <AcademicSemester />,
+      },
+    ],
+  },
 ];
 
 // export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
@@ -51,7 +61,6 @@ export const adminPaths = [
 
 //   return acc;
 // }, []);
-
 
 // manual path
 // const adminRoutes = [

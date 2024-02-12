@@ -3,6 +3,8 @@ import { sidebarItemGenerator } from '../../utils/sidebarItemsGenerator';
 import { adminPaths } from '../../routes/admin.routes';
 import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
+import { getCurrentUser } from '../../redux/features/auth/authSlice';
+import { useAppSelector } from '../../redux/hooks';
 
 const { Sider } = Layout;
 const logoStyle = {
@@ -19,11 +21,11 @@ const userRole = {
 };
 
 const Sidebar = () => {
-  const role = 'admin';
+  const user = useAppSelector(getCurrentUser)
 
   let sidebarItems;
 
-  switch (role) {
+  switch (user!.role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemGenerator(adminPaths, userRole.ADMIN);
       break;
@@ -43,10 +45,10 @@ const Sidebar = () => {
       breakpoint="lg"
       collapsedWidth="0"
       onBreakpoint={(broken) => {
-        console.log(broken);
+
       }}
       onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
+
       }}
     >
       <div style={logoStyle}>
