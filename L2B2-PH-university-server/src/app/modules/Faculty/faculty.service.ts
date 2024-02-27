@@ -22,8 +22,8 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   const result = await facultyQuery.modelQuery;
   const meta = await facultyQuery.countTotal();
   return {
-    meta,
     result,
+    meta,
   };
 };
 

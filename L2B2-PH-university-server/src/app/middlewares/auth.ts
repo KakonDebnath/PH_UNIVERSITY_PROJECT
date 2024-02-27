@@ -17,15 +17,10 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // checking if the given token is valid
-    let decoded;
-    try {
-      decoded = jwt.verify(
-        token,
-        config.jwt_access_secret as string,
-      ) as JwtPayload;
-    } catch (error) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You aer unauthorized');
-    }
+    const decoded = jwt.verify(
+      token,
+      config.jwt_access_secret as string,
+    ) as JwtPayload;
 
     const { role, userId, iat } = decoded;
 
