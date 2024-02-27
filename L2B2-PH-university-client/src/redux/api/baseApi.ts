@@ -1,6 +1,3 @@
-import { toast } from 'sonner';
-import { logout, setUser } from '../features/auth/authSlice';
-import { RootState } from './../store';
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -9,16 +6,21 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
+import { logout, setUser } from '../features/auth/authSlice';
+import { toast } from 'sonner';
+
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:5000/api/v1',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
+
     if (token) {
-      headers.set('Authorization', token);
-    } else {
-      return headers;
+      headers.set('authorization', `${token}`);
     }
+
+    return headers;
   },
 });
 
@@ -30,7 +32,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 404) {
-    toast.error(result?.error?.data?.message);
+    toast.error(result.error.data.message);
+  }
+  if (result?.error?.status === 403) {
+    toast.error(result.error.data.message);
   }
   if (result?.error?.status === 401) {
     //* Send Refresh
@@ -65,5 +70,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithRefreshToken,
+  tagTypes: ['semester', 'courses', 'offeredCourse'],
   endpoints: () => ({}),
 });

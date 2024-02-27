@@ -2,27 +2,20 @@ import { Button, Row } from 'antd';
 import { FieldValues } from 'react-hook-form';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import { useAppDispatch } from '../redux/hooks';
-import { setUser } from '../redux/features/auth/authSlice';
+import { TUser, setUser } from '../redux/features/auth/authSlice';
 import { verifyToken } from '../utils/verifyToken';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import PHForm from '../components/form/PhForm';
-import PHInput from '../components/form/PhInput';
-import { TUserInfo } from '../types/auth.type';
+import PHForm from '../components/form/PHForm';
+import PHInput from '../components/form/PHInput';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const { register, handleSubmit } = useForm({
-  //   defaultValues: {
-  //     userId: 'A-0002',
-  //     password: 'admin123',
-  //   },
-  // });
 
   const defaultValues = {
-    userId: 'A-0001',
-    password: 'admin123',
+    userId: '2026010016',
+    password: 'student123',
   };
 
   const [login] = useLoginMutation();
@@ -38,13 +31,15 @@ const Login = () => {
       };
       const res = await login(userInfo).unwrap();
 
-      const user = verifyToken(res.data.accessToken) as TUserInfo;
-
+      const user = verifyToken(res.data.accessToken) as TUser;
       dispatch(setUser({ user: user, token: res.data.accessToken }));
-
       toast.success('Logged in', { id: toastId, duration: 2000 });
 
-      navigate(`/${user.role}/dashboard`);
+      if (res.data.needsPasswordChange) {
+        navigate(`/change-password`);
+      } else {
+        navigate(`/${user.role}/dashboard`);
+      }
     } catch (err) {
       toast.error('Something went wrong', { id: toastId, duration: 2000 });
     }

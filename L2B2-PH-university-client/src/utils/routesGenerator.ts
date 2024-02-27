@@ -1,6 +1,5 @@
 import { TRoute, TUserPath } from '../types';
 
-
 export const routeGenerator = (items: TUserPath[]) => {
   const routes = items.reduce((acc: TRoute[], item) => {
     if (item.path && item.element) {
@@ -10,8 +9,8 @@ export const routeGenerator = (items: TUserPath[]) => {
       });
     }
 
-    if (item.children && item.children.length) {
-      item?.children?.forEach((child) => {
+    if (item.children) {
+      item.children.forEach((child) => {
         acc.push({
           path: child.path!,
           element: child.element,

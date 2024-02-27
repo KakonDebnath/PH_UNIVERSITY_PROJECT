@@ -1,10 +1,10 @@
-import MainLayouts from './components/layouts/MainLayouts';
-import ProtectedRoute from './components/layouts/ProtectedRoute';
+import MainLayout from './components/layout/MainLayout';
+import ProtectedRoute from './components/layout/ProtectedRoute';
 
 function App() {
   return (
-    <ProtectedRoute>
-      <MainLayouts />
+    <ProtectedRoute role={undefined}>
+      <MainLayout />
     </ProtectedRoute>
   );
 }
